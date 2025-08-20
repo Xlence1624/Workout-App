@@ -32,14 +32,14 @@ const {workout, warmup} = workoutProgram[selectedWorkout];
 <p>{{ w.reps }}</p>
 <input class="grid-weights" type="text" placeholder="14kg" disabled>
 </div>
-<div class="workout-grid-line ">
-<div class="workout-grid">
+<div class="workout-grid-line workout-grid ">
+
 <h4 class="grid-name">Workout</h4>
   <h6>Sets</h6>
   <h6>Reps</h6>
 
   <h6 class="grid-weight">weights</h6>
-</div>
+
 
 
   <div  class="workout-grid-row"  v-for="(w, index) in workout" :key="index">
@@ -55,20 +55,20 @@ const {workout, warmup} = workoutProgram[selectedWorkout];
 </div>
 
 
-  <div class="card flex justify-between items-center ">
-  <button>
+
+
+
+
+</div>
+
+  <div class="card w-110 md:w-142 flex justify-between items-center ">
+  <button class="flex-1">
     Save and Exit <i class="fa-solid fa-left-arrow"></i>
   </button>
-    <button>
+    <button class="flex-1">
     Complete <i class="fa-solid fa-left-check"></i>
   </button>
 </div>
-
-
-
-</div>
-
-
 
 </div>
 
@@ -93,19 +93,18 @@ justify-content: space-between;
 gap: 1rem;
 }
 
-.workout-grid, .workout-grid-row, .lower-grid {
+.workout-grid, .workout-grid-row {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
 gap: 1rem;
-margin-top: 10px;
+
 }
 
 
-.grid-top{
-  margin-top: 20px;
-}
+
 .workout-grid-row, .workout-grid-line{
   grid-column: span 7 / span 7;
+  
   
   
  
@@ -141,6 +140,13 @@ pointer-events: none;
   pointer-events: all;
 }
 
+.grid-name{
+  text-transform: capitalize;
+}
+
+.grid-weights{
+grid-column: span 2 /span 2;
+}
 
 
 </style>
