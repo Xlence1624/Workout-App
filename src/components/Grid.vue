@@ -1,12 +1,16 @@
 <script setup>
 import { workoutProgram } from '../utils';
+
+defineProps({
+handleSelectedWorkout: Function
+})
 const workoutTyres = ['Push', 'Pull', 'Legs'];
 
 </script>
 
 <template>
 <section id="grid" class="">
-  <button v-for="(workout, index) in Object.keys(workoutProgram)" :key="index" class=" card-button plan-card ">
+  <button v-for="(workout, index) in Object.keys(workoutProgram) " :key="index" class=" card-button plan-card "  @click="() =>handleSelectedWorkout(index)">
 <div class="flex flex-col  text-center justify-center items-center ">
 
   <p class="text-sm text-gray-500"> {{ workoutProgram[workout].description }}</p>

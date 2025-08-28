@@ -3,7 +3,7 @@
 
 <template>
   <header>
-    <h1>Michael</h1>
+    <p class="text-gradient text-3xl ">Michael</p>
   </header>
   <main>
     <slot />

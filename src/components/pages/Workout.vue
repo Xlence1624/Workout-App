@@ -1,15 +1,38 @@
 <script setup>
-import { workoutProgram } from '../../utils';
+import Portal from '../Portal.vue';
+import { workoutProgram, exerciseDescriptions } from '../../utils';
+import { computed, ref } from 'vue';
 
-const selectedWorkout = 4 ; 
+const {data, selectedWorkout} = defineProps({
+  data: Object,
+  selectedWorkout: Number
+})
 const {workout, warmup} = workoutProgram[selectedWorkout];
+let selectedExercise = ref(null)
+const exerciseDescription = computed (() => exerciseDescriptions[selectedExercise.value])
+const handleClick = () => {
+  selectedExercise.value = null
+}
+
 </script>
 
 <template>
-<section>
-<div class="plan-card card">
-<div class="plan-card-header">
-  <p>Day {{ selectedWorkout < 9 ? '0' + selectedWorkout : selectedWorkout }}</p>
+  <portal  hello="
+  world " :handleClick="handleClick" v-if="selectedExercise">
+    <div class="exercise-description">
+  <h4>{{ selectedExercise }} </h4>
+  <div>
+    <small>Description</small>
+   <p>{{exerciseDescription}}</p>
+  </div>
+ <button @click="handleClick">Close <i class="fa-solid fa-xmark"></i></button>
+    </div>
+  
+  </portal>
+<section >
+<div class="plan-card card ">
+<div class="plan-card-header ">
+  <p class="">Day {{ selectedWorkout  < 9 ?   selectedWorkout + 1 : selectedWorkout + 1 }}</p>
   <i class=" fa-solid  fa-dumbbell"></i>
 </div>
 <h2>{{ 'Push' }} Workout</h2>
@@ -24,7 +47,9 @@ const {workout, warmup} = workoutProgram[selectedWorkout];
   <div class="workout-grid-row" v-for="(w, index) in warmup" :key="index">
 <div class="grid-name">
   <p>{{ w.name }}</p>
-  <button>
+  <button @click="() => {
+    selectedExercise = w.name
+  }">
     <i class="fa-regular fa-circle-question"></i>
   </button>
 </div>
@@ -45,13 +70,14 @@ const {workout, warmup} = workoutProgram[selectedWorkout];
   <div  class="workout-grid-row"  v-for="(w, index) in workout" :key="index">
 <div class="grid-name">
   <p>{{ w.name }}</p>
-  <button>
+  <button @click="() => {
+    selectedExercise = w.name}">
     <i class="fa-regular fa-circle-question"></i>
   </button>
 </div>
 <p>{{ w.sets }}</p>
 <p>{{ w.reps }}</p>
-<input class="grid-weights" type="text" placeholder="14kg" >
+<input v-model="data[selectedWorkout[w.name]]" class="grid-weights" type="text" placeholder="14kg" >
 </div>
 
 
@@ -61,8 +87,8 @@ const {workout, warmup} = workoutProgram[selectedWorkout];
 
 </div>
 
-  <div class="card w-110 md:w-142 flex justify-between items-center ">
-  <button class="flex-1">
+  <div class="card w-110 md:w-142 flex justify-between items-center gap-2 ">
+  <button class="flex-1 ">
     Save and Exit <i class="fa-solid fa-left-arrow"></i>
   </button>
     <button class="flex-1">
@@ -80,6 +106,7 @@ const {workout, warmup} = workoutProgram[selectedWorkout];
 #work-out, .plan-card{
   display: flex;
   flex-direction: column;
+  margin: 20px 0;
 }
 
 #workout-card{
@@ -148,5 +175,16 @@ pointer-events: none;
 grid-column: span 2 /span 2;
 }
 
-
+.exercise-description{
+display: flex;
+flex-direction: column;
+gap: 1rem;
+width: 100%;
+}
+.exercise-description h4{
+  text-transform: capitalize;
+}
+.exercise-description button{
+  padding-left: 0.5rem ;
+}
 </style>
