@@ -5,7 +5,9 @@ import { computed, ref } from 'vue';
 
 const {data, selectedWorkout} = defineProps({
   data: Object,
-  selectedWorkout: Number
+  selectedWorkout: Number,
+  handleSavedWorkout: Function,
+  isWorkoutComplete: Boolean
 })
 const {workout, warmup} = workoutProgram[selectedWorkout];
 let selectedExercise = ref(null)
@@ -88,10 +90,10 @@ const handleClick = () => {
 </div>
 
   <div class="card w-110 md:w-142 flex justify-between items-center gap-2 ">
-  <button class="flex-1 ">
+  <button class="flex-1 " @click="handleSavedWorkout">
     Save and Exit <i class="fa-solid fa-left-arrow"></i>
   </button>
-    <button class="flex-1">
+    <button :diasble="isWorkoutComplete" class="flex-1" @click="handleSavedWorkout">
     Complete <i class="fa-solid fa-left-check"></i>
   </button>
 </div>

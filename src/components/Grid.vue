@@ -10,7 +10,7 @@ const workoutTyres = ['Push', 'Pull', 'Legs'];
 
 <template>
 <section id="grid" class="">
-  <button v-for="(workout, index) in Object.keys(workoutProgram) " :key="index" class=" card-button plan-card "  @click="() =>handleSelectedWorkout(index)">
+  <button v-for="(workout, index) in Object.keys(workoutProgram) " disabled=""  :key="index" class=" card-button plan-card "  @click="() =>handleSelectedWorkout(index)">
 <div class="flex flex-col  text-center justify-center items-center ">
 
   <p class="text-sm text-gray-500"> {{ workoutProgram[workout].description }}</p>
@@ -45,6 +45,11 @@ const workoutTyres = ['Push', 'Pull', 'Legs'];
   width: 100%;
 }
 
+
+#grid button:disabled{
+  box-shadow: none;
+  cursor: not-allowed;
+}
 .plan-card{
   display: flex;
   flex-direction: column;
