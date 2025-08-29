@@ -33,13 +33,20 @@ function handleSelectedWorkout (index){
   selectedWorkout.value = index
 }
 
-function handleSaveWorkout(){
-  localStorage.setItem('workouts'. JSON.stringify(data.value))
+function handleSavedWorkout(){
+  localStorage.setItem('workouts', JSON.stringify(data.value))
 
 
   selectedDisplay.value = 2
 selectedWorkout.value = -1
 
+}
+
+function handleSelectedPlan (){
+  selectedDisplay.value = 2
+  selectedWorkout.value = -1
+  data.value = defaultData
+  localStorage.removeItem('workouts')
 }
 
 const isWorkoutComplete = computed(
@@ -83,9 +90,10 @@ const firstCompleteWorkoutIndex = computed(
 <Welcome v-if="selectedDisplay == 1" :handleChangeDisplay="handleChangeDisplay"/>
 <Dashboard v-if="selectedDisplay == 2" :handleSelectedWorkout="handleSelectedWorkout" 
 :firstCompleteWorkoutIndex="firstCompleteWorkoutIndex"
+:handleSelectedPlan="handleSelectedPlan"
 />
-<Workout v-if="workoutProgram?.[selectedWorkout]" :selectedWorkout="selectedWorkout" :data="data"  :isWorkoutComplete ="isWorkoutComplete" :handleSaveWorkout="
-handleSaveWorkout"/>
+<Workout v-if="workoutProgram?.[selectedWorkout]" :selectedWorkout="selectedWorkout" :data="data"  :isWorkoutComplete ="isWorkoutComplete" :handleSavedWorkout="
+handleSavedWorkout"/>
   </Layouts>
 
 

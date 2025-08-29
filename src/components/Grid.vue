@@ -2,15 +2,17 @@
 import { workoutProgram } from '../utils';
 
 defineProps({
-handleSelectedWorkout: Function
+handleSelectedWorkout: Function,
+firstCompleteWorkoutIndex: Number,
+handleSelectedPlan: Function
 })
-const workoutTyres = ['Push', 'Pull', 'Legs'];
+const workoutTypes = ['Push', 'Pull', 'Legs'];
 
 </script>
 
 <template>
 <section id="grid" class="">
-  <button v-for="(workout, index) in Object.keys(workoutProgram) " disabled=""  :key="index" class=" card-button plan-card "  @click="() =>handleSelectedWorkout(index)">
+  <button v-for="(workout, index) in Object.keys(workoutProgram) " :disabled =" index > 0 && index > firstCompleteWorkoutIndex "  :key="index" class=" card-button plan-card "  @click="() =>handleSelectedWorkout(index)">
 <div class="flex flex-col  text-center justify-center items-center ">
 
   <p class="text-sm text-gray-500"> {{ workoutProgram[workout].description }}</p>
@@ -25,11 +27,15 @@ const workoutTyres = ['Push', 'Pull', 'Legs'];
     
     <i class="fa-solid fa-bolt" v-if="index % 3 == 2"></i>
 </div>
-<h3  >{{ workoutTyres[index % 3] }}</h3>
+<h3  >{{ workoutTypes[index % 3] }}</h3>
+
 
 </div>
 
   </button>
+  <button class="card-button plan-card-reset" @click="" :disabled="firstCompleteWorkoutIndex != -1">
+<p>Reset  <i class="fa-solid fa-rotate-left"></i> </p>
+</button>
 </section>
 </template>
 
@@ -55,7 +61,12 @@ const workoutTyres = ['Push', 'Pull', 'Legs'];
   flex-direction: column;
 }
 
-
+.plan-card-reset {
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
 @media (min-width: 640px) {
   #grid{
     grid-template-columns: repeat(4, minmax(0 , 1fr));

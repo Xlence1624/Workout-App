@@ -596,6 +596,16 @@ details[open] summary {
     color: var(--color-primary);
     padding: 1rem;
     border-radius: 0.5rem;
+    
+}
+
+.exit-card{
+        background-color: var(--background-muted);
+    color: var(--color-primary);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 15px;
+    gap: 1rem;
 }
 
 .card {
