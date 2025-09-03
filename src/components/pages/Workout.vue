@@ -72,7 +72,7 @@ const handleClick = () => {
         </div>
         <p>{{ w.sets }}</p>
         <p>{{ w.reps }}</p>
-        <input class="grid-weights" type="text" placeholder="14kg" disabled />
+        <input class="grid-weights" type="text" placeholder="14kg"  />
       </div>
       <div class="workout-grid-line"></div>
 
